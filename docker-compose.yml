@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+    nginx-proxy:
+        image: jwilder/nginx-proxy:1.2.3
+        container_name: nginx-proxy
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - ./volumes/vhost.d:/etc/nginx/vhost.d
+            - ./volumes/certs:/etc/nginx/certs
+            - ./volumes/html:/usr/share/nginx/html
+        restart: always
+        networks:
+            - nginx-proxy
+        labels:
+            - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+
+    nginx-letsencrypt:
+        image: nginxproxy/acme-companion:2.2.7
+        container_name: nginx-proxy-letsencrypt
+        depends_on:
+            - nginx-proxy
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./volumes/vhost.d:/etc/nginx/vhost.d
+            - ./volumes/certs:/etc/nginx/certs
+            - ./volumes/html:/usr/share/nginx/html
+            - ./volumes/acme:/etc/acme.sh
+        environment:
+            DEFAULT_EMAIL: ${DEFAULT_EMAIL}
+        restart: always
+        networks:
+            - nginx-proxy
+
+networks:
+    nginx-proxy:
+        name: nginx-proxy
