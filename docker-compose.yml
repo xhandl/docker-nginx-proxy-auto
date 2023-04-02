@@ -9,9 +9,10 @@ services:
             - 443:443
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
-            - ./volumes/vhost.d:/etc/nginx/vhost.d
             - ./volumes/certs:/etc/nginx/certs
+            - ./volumes/conf.d/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf:ro
             - ./volumes/html:/usr/share/nginx/html
+            - ./volumes/vhost.d:/etc/nginx/vhost.d
         restart: always
         networks:
             - nginx-proxy
@@ -25,10 +26,10 @@ services:
             - nginx-proxy
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock:ro
-            - ./volumes/vhost.d:/etc/nginx/vhost.d
+            - ./volumes/acme:/etc/acme.sh
             - ./volumes/certs:/etc/nginx/certs
             - ./volumes/html:/usr/share/nginx/html
-            - ./volumes/acme:/etc/acme.sh
+            - ./volumes/vhost.d:/etc/nginx/vhost.d
         environment:
             DEFAULT_EMAIL: ${DEFAULT_EMAIL}
         restart: always
