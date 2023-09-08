@@ -13,7 +13,7 @@ Main parametrs can be modified via `.env` file.
 
 Default Nginx configuration:
 ```
-IMAGE: jwilder/nginx-proxy:1.2.3
+IMAGE: jwilder/nginx-proxy:1.3
 CONTAINER NAME: nginx-proxy
 PORT: 80:80
       443:443
@@ -21,7 +21,7 @@ PORT: 80:80
 
 Default Let's Encrypt configuration:
 ```
-IMAGE: nginxproxy/acme-companion:2.2.7
+IMAGE: nginxproxy/acme-companion:2.2
 CONTAINER NAME: nginx-letsencrypt
 ```
 
