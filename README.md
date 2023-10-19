@@ -1,5 +1,5 @@
 # Nginx
-### Run and go Docker setup for automated Nginx reverse proxy with Let's Encrypt.
+### Run and go Docker setup for Nginx reverse proxy with autodiscovery and Let's Encrypt.
 
 <br />
 
@@ -13,7 +13,7 @@ Main parametrs can be modified via `.env` file.
 
 Default Nginx configuration:
 ```
-IMAGE: jwilder/nginx-proxy:1.3
+IMAGE: nginxproxy/nginx-proxy:latest
 CONTAINER NAME: nginx-proxy
 PORT: 80:80
       443:443
@@ -21,8 +21,8 @@ PORT: 80:80
 
 Default Let's Encrypt configuration:
 ```
-IMAGE: nginxproxy/acme-companion:2.2
-CONTAINER NAME: nginx-letsencrypt
+IMAGE: nginxproxy/acme-companion:latest
+CONTAINER NAME: nginx-proxy-acme
 ```
 
 Data are persisted locally:
