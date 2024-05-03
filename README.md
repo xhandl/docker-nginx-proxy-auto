@@ -45,8 +45,6 @@ To reload nginx configuration just run:
 
 Example of Docker Compose configuration for App service, e.g. Adminer:
 ```
-version: '3.8'
-
 services:
     adminer:
         environment:
